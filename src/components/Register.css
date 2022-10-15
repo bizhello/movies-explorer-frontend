@@ -1,0 +1,114 @@
+.register, .login {
+    margin: 70px auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 396px;
+    background: #202020;
+}
+.register__logo, .login__logo {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 38px;
+    min-height: 38px;
+    background: url("../images/headerLogo.svg") no-repeat;
+}
+.register__title, .login__title {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 40px 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+}
+.register__textLabel, .login__textLabel {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #8B8B8B;
+}
+.register__input, .login__input {
+    box-sizing: border-box;
+    margin: 10px 0 20px;
+    padding: 15px;
+    width: 100%;
+    height: 45px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #FFFFFF;
+    background: #2F2F2F;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+.register__button, .login__button {
+    margin: 69px auto 0;
+    padding: 0;
+    width: 100%;
+    height: 45px;
+    background: #4285F4;
+    border-radius: 3px;
+    border: none;
+}
+.register__toback, .login__toback {
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+.register__question, .login__question {
+    margin: 0;
+    padding: 0;
+    color: #8B8B8B;
+}
+.register__toChangePage, .login__toChangePage {
+    margin: 0;
+    padding: 0;
+    margin-left: 6px;
+    color: #4285F4;
+    text-decoration: none;
+}
+#register__password, #login__password  {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+
+}
+@media (max-width: 450px) {
+    .register, .login {
+        margin: 56px auto 30px;
+        width: 81%;
+    }
+    .register__logo, .login__logo {
+        margin: 0 auto;
+    }
+    .register__title, .login__title {
+        margin: 50px auto 80px;
+    }
+    .register__button, .login__button {
+        margin: 157px 0 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .register__toback, .login__toback {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
