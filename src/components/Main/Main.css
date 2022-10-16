@@ -119,8 +119,6 @@
 @media (max-width: 820px) {
     .main-header__img {
         align-self: center;
+        max-width: 100%;
     }
 }
-
-
- 

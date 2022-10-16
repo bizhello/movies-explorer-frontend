@@ -20,7 +20,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
-    color: #8B8B8B;
+    color: #FFFFFF;
     width: 100%;
     background: #202020;
 }
@@ -39,10 +39,17 @@
     border: none;
     border-radius: 5px;
 }
+.searchForm__button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
 
 .searchForm__name:active, .searchForm__name:hover, .searchForm__name:focus {
     outline: 0;
     outline-offset: 0;
+}
+.searchForm__name:focus {
+    outline: 8px ridge rgba(118, 112, 121, 0.6);
 }
 @media (max-width: 800px) {
     .searchForm {
