@@ -50,6 +50,9 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+.line {
+    list-style-type: none;
+}
 
 @media (max-width: 600px) {
     .portfolio {

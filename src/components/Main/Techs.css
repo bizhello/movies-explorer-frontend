@@ -44,7 +44,8 @@
 .techs__row {
     display: flex;
     flex-wrap: wrap;
-    max-width: 690px;
+    justify-content: center;
+    /* max-width: 690px; */
     margin: 90px auto 0;
     padding: 0;
 }
@@ -67,9 +68,9 @@
     background: #303030;
     border-radius: 10px;
 }
-.techs__technology:last-child {
+/* .techs__technology:last-child {
     margin-right: 0;
-}
+} */
 @media (max-width: 830px) {
     .techs__technology {
         height: 57px;
@@ -77,9 +78,9 @@
         font-size: 12px;
         line-height: 15px;
     }
-    .techs__row {
+    /* .techs__row {
         max-width: 668px;
-    }
+    } */
 }
 
 @media (max-width: 600px) {

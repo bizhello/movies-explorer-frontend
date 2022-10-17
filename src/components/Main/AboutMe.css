@@ -22,6 +22,7 @@
 .aboutMe__column {
     margin: 0;
     padding: 0;
+    padding-right: 40px;
     display: flex;
     flex-direction: column;
 }
@@ -81,9 +82,6 @@
     .aboutMe__photo {
         min-width: 255px;
         height: 307;
-    }
-    .aboutMe__column {
-        padding-right: 20px;
     }
 }
 @media (max-width: 600px) {
