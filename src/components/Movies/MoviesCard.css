@@ -42,6 +42,10 @@
     min-height: 12px;
     border: none;
 }
+.moviesCard__like:hover, .moviesCard__like-active:hover, .moviesCard__delete:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
 .moviesCard__like {
     background: url("./../../images/like.svg") center no-repeat;
 }
@@ -54,12 +58,20 @@
 .moviesCard__button-none {
     display: none;
 }
-.moviesCard__photo {
+.moviesCard__link {
     display: block;
     margin: 0;
     padding: 6px;
     width: 220px;
     height: 122px;
+    text-decoration: 0;
+}
+.moviesCard__photo {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center;
 }
@@ -87,12 +99,14 @@
         font-size: 12px;
         line-height: 15px;
     }
-    .moviesCard__photo {
-        width: 100%;
+    .moviesCard__link {
         height: 168px;
-        margin: 0;
         padding: 0;
         background-color: #202020;
+    }
+    .moviesCard__photo {
+        width: 100%;
+        margin: 0;
     }
     .moviesCard__like-active {
         position: absolute;

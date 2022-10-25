@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-function Header() {
+function Header(props) {
 
     const [isBurgerPopupOpen, setIsBurgerPopupOpen] = useState(false);
 
@@ -17,8 +17,8 @@ function Header() {
         <header className="header">
             <NavLink className="header__logo main-header__logo logo" to="/"></NavLink>
             <div className="header__films">
-                <NavLink className="header__text header__all-films" to="/movies">Фильмы</NavLink>
-                <NavLink className="header__text header__save-films" to="/saved-movies">Сохранённые фильмы</NavLink>
+                <NavLink className={({ isActive }) => (isActive ? "header__text header__all-films active" : "header__text header__all-films")} to="/movies">Фильмы</NavLink>
+                <NavLink className={({ isActive }) => (isActive ? "header__text header__save-films active" : "header__text header__save-films")} to="/saved-movies">Сохранённые фильмы</NavLink>
             </div>
             <div className="header__account">
                 <p className="header__text header__text_acc">Аккаунт</p>

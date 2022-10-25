@@ -17,8 +17,9 @@ function Main(props) {
             <section className='main-header__top'>
                 <NavLink className="main-header__logo logo" to="/"></NavLink>
                 <div className="main-header__nav">
-                    <NavLink className="main-header__register" to="/sign-up">Регистрация</NavLink>
-                    <NavLink className="main-header__login" to="/sign-in">Войти</NavLink>
+                    <NavLink className="main-header__register" to={props.loggedIn?"/movies":"/sign-up"}>{props.loggedIn?"Фильмы":"Регистрация"}</NavLink>
+                    <NavLink className={props.loggedIn?"main-header__login main-header__login-log":"main-header__login"} to={props.loggedIn?"/saved-movies":"/sign-in"}>{props.loggedIn?"Сохранённые фильмы":"Войти"}</NavLink>
+                    <NavLink className={props.loggedIn?"header__user_logo header__user_logo-main":"display-none"} to="/profile"></NavLink>
                 </div>
             </section>
             <section className='main-header__cover'>

@@ -64,10 +64,9 @@
     background: url("../images/headerLogo.svg") no-repeat;
 }
 .header__user_logo {
-    display: block;
+    display: inline-block;
     width: 12px;
     min-height: 14px;
-    margin: 0;
     padding: 0;
     background: url("../images/user-logo.svg") no-repeat center;
 }
@@ -192,4 +191,15 @@
 }
 .display-none {
     display: none;
+}
+
+.header__burger:hover, .header__user_logo:hover, .header__logo:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
 }

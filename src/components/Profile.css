@@ -19,7 +19,7 @@
     color: #FFFFFF;
 }
 .profile__info {
-    margin: 123px 0 0;
+    margin: 123px 0 20px;
     padding: 0;
     width: 37%;
     font-style: normal;
@@ -41,6 +41,18 @@
     margin-block-end: 0;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px; 
+    color: #FFFFFF;
+    background: #202020;
+    border: none;
+    outline: none;
+}
+.profile__text:focus {
+    border-radius: 8px;
+    border: 1px solid white;
 }
 .profile__edit, .profile__logout {
     padding: 0;
@@ -59,14 +71,24 @@
     margin: 220px 0 0;
     color:#FFFFFF
 }
+.profile__edit-save {
+    width: 53%;
+    height: 45px;
+    background: #4285F4;
+}
 .profile__logout {
     font-weight: 500;
     color: #EE3465;
     margin: 16px 0 0;
+    text-decoration: none;
 }
 .profile__line {
     margin: 16px 0;
     padding: 0;
+}
+.profile__logout:hover, .profile__edit:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 @media (max-width: 800px) {

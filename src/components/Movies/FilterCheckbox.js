@@ -1,6 +1,10 @@
 import React from "react";
 
-function FilterCheckbox() {
+function FilterCheckbox(props) {
+
+    function clikCheckBox() {
+        props.setCheckShortFilms(!props.checkShortFilms);
+    }
 
     return (
         <>
@@ -11,6 +15,7 @@ function FilterCheckbox() {
                         id="filterCheckbox__films"
                         name="filterCheckbox__films"
                         type="checkbox"
+                        onClick={clikCheckBox}
                     />
                     <div className="filterCheckbox__div"></div>
                 </label>

@@ -44,6 +44,10 @@
     text-decoration: none;
     color: #000000;
 }
+.main-header__login-log {
+    width: 150px;
+    height: 30px;
+}
 .main-header__cover{
     display: flex;
     flex-direction: column;
@@ -92,6 +96,11 @@
     width: 38px;
     min-height: 38px;
     background: url("../../images/headerLogo.svg") no-repeat;
+}
+.header__user_logo-main {
+    margin-left: 17px;
+    display: inline-block;
+    background: url("../../images/user-logo.svg") no-repeat center;
 }
 
 

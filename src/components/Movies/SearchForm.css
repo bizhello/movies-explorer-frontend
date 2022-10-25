@@ -43,6 +43,11 @@
     opacity: 0.8;
     cursor: pointer;
 }
+.searchForm__button:disabled {
+    background: gray;
+    opacity: 1;
+    cursor: default;
+}
 
 .searchForm__name:active, .searchForm__name:hover, .searchForm__name:focus {
     outline: 0;

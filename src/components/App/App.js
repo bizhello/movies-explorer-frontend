@@ -1,7 +1,11 @@
-// import {useState, useEffect, } from "react";
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-// import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Route, Routes, Navigate ,useNavigate } from 'react-router-dom';
+
+import { mainApi } from "../../utils/MainApi";
+import { moviesApi } from "../../utils/MoviesApi";
+import { CurrentUserContext } from '../../utils/contexts/CurrentUserContext';
+import { getContentAuth, loginAuth, registerAuth, logout } from "../../utils/Auth"
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -10,77 +14,237 @@ import Profile from "../Profile";
 import Register from "../Register";
 import Login from "../Login";
 import Error from "../Error";
-// import Footer from '../Footer'
-
-
-// import {getContentAuth, loginAuth, registerAuth} from "../../utils/Auth"
 
 function App() {
 
-  // const [currentUser, setCurrentUser] = useState({});
-  // const [loggedIn, setLoggedIn] = useState(false);
-  // const navigate = useNavigate();
+  const [messageUserEdit, setMessageUserEdit] = useState('');
+  const [shortDataFilms, setShortDataFilms] = useState([]); //короткометражки со стороннего апи
+  const [shortSaveDataFilms, setShortSaveDataFilms] = useState([]); //короткометражки с нашего апи
+  const [dataFilms, setDataFilms] = useState([]); //фильмы со стороннего апи
+  const [saveDataFilms, setSaveDataFilms] = useState([]); //фильмы с нашего апи
+  const [fetchError, setFetchError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  // const [data, setData] = useState({
-  //   email: '',
-  //   id: ''
-  // });
+  useEffect(()=> {
+    if(loggedIn) {
+      pullAllMovies();
+      updateSaveDataFilms();
+      setFetchError(false);
+    }
+  },[loggedIn])
+  
+  useEffect(()=> {
+    tokenCheck();
+  },[]);
 
-  // useEffect(()=> {
-  //   if(loggedIn) {
-  //       navigate('/')
-  //   }
-  //   else {
-  //       navigate('/sign-in')
-  //   }
-  // },[loggedIn])
+  useEffect(()=>{
+    const apiGetUserInfo = mainApi.getUserInfo();
+    if(loggedIn) {
+      apiGetUserInfo
+        .then((res) => {
+          setCurrentUser({
+            email: res.email,
+            name: res.name,
+            _id: res._id,
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      }
+    },[loggedIn]);
 
-  // const tokenCheck = () => {
-  //   let jwt = localStorage.getItem('jwt')
-  //   if(jwt) {
-  //       getContentAuth(jwt)
-  //           .then((res) => {
-  //               setData({
-  //                   email: res.data.email,
-  //                   id: res.data._id
-  //               });
-  //               navigate('../', setLoggedIn(true));
-  //           })
-  //           .catch((err) => console.log(err));
-  //   }
-  // }
+  const tokenCheck = () => {
+    getContentAuth()
+      .then((res) => {
+        if(res) {
+          setLoggedIn(true);
+        } else {
+          navigate('../sign-in');
+        }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }
+
+  const handelLogin = (email, password) => {
+    setIsLoading(true);
+    loginAuth(email, password)
+      .then((res) => {
+          if(res) {
+            navigate('../movies', setLoggedIn(true), setIsLoading(false));
+          }
+      })
+      .catch(err => {
+        setIsLoading(false);
+        setFetchError(true);
+        console.log(err);
+      });
+  }
+
+  const handelRegister = (email, password, name) => {
+    setIsLoading(true);
+    registerAuth(email, password, name)
+      .then((res) => {
+        if(res) {
+          handelLogin(email,password);
+          setIsLoading(false);
+        }
+      })
+      .catch(err => {
+        setIsLoading(false);
+        setFetchError(true)
+        console.log(err);
+      });
+  }
+
+  const handelLogout = () => {
+    logout()
+      .then(() => {
+        setLoggedIn(false)
+    })
+      .catch(err => {
+        setFetchError(true);
+        console.log(err);
+      });
+  }
+
+  function handleUpdateUser(email, name) {
+    setIsLoading(true);
+    mainApi.editUserInfo(email, name)
+    .then((res)=> {
+      setMessageUserEdit('Данные успешно изменены. ')
+      setIsLoading(false);
+      setFetchError(false);
+      setCurrentUser({
+        email: res.email,
+        name: res.name,
+        _id: currentUser._id,
+      })
+    })
+    .catch(err => {
+      setMessageUserEdit('При обновлении профиля произошла ошибка.');
+      setFetchError(true);
+      setIsLoading(false);
+      console.log(err);
+    });
+  }
+  
+  function createShortFilms(films) {
+    return films.filter(item => item.duration <= 40)
+  }
+
+  function pullAllMovies() {
+    moviesApi.getFilms()
+      .then((res) => {
+        setDataFilms(res);
+        setShortDataFilms(createShortFilms(res))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  function updateSaveDataFilms() {
+    mainApi.getInitialMovies()
+      .then((res) => {
+        setSaveDataFilms(res);
+        setShortSaveDataFilms(createShortFilms(res));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  function handleFilmDelete(film) {
+    setIsLoading(true);
+    mainApi.deleteCard(film._id)
+      .then((res)=>{
+        if(res) {
+          updateSaveDataFilms();
+          setIsLoading(false);
+        }
+      })
+      .catch(err => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  }
+
+  function handleLikeDelete(film) {
+    setIsLoading(true);
+    mainApi.deleteCard(film[0]._id)
+      .then((res)=>{
+        if(res) {
+          updateSaveDataFilms();
+          setIsLoading(false);
+        }
+      })
+      .catch(err => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  }
+
+  function handleFilmLike(film) {
+    setIsLoading(true);
+    const isLiked = saveDataFilms.some(i => i.movieId === film.id)
+    if (isLiked) {
+      handleLikeDelete(saveDataFilms.filter(item => item.movieId === film.id));
+      setSaveDataFilms(saveDataFilms.filter(item => item.movieId !== film.id));
+    } else {
+      setIsLoading(true);
+      mainApi.createMovies(film.country, film.director, film.duration, film.year, film.description, `https://api.nomoreparties.co${film.image.url}`, film.trailerLink, film.nameRU, film.nameEN, `https://api.nomoreparties.co${film.image.url}`, film.id)
+        .then((res) => {
+          if(res) {
+            updateSaveDataFilms();
+            setIsLoading(false);
+          }
+        })
+        .catch(err => {
+          setIsLoading(false);
+          console.log(err);
+        })
+      }
+  }
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
       <div className="container">
         <Routes>
-              <Route
-                path="/"
-                element={<Main/>} />
-                <Route
-                path="/movies"
-                element={<Movies/>} />  
-                <Route
-                path="/saved-movies"
-                element={<SavedMovies/>} />
-                <Route
-                path="/profile"
-                element={<Profile/>} />
-                <Route
-                path="/sign-up"
-                element={<Register/>} />
-                <Route
-                path="/sign-in"
-                element={<Login/>} />
-                <Route
-                path="/error"
-                element={<Error/>} />
-              {/* <Route
-                path="*"
-                element={loggedIn ? <Navigate to='/'/> : <Navigate to='/sign-in'/>} /> */}
+          <Route
+            path="/"
+            element={<Main loggedIn={loggedIn}/>} />
+          <Route
+            path="/movies"
+            element={<Movies dataFilms={dataFilms} handleFilmLike={handleFilmLike} isLoading={isLoading} saveDataFilms={saveDataFilms} shortDataFilms={shortDataFilms} loggedIn={loggedIn}/>} />
+          <Route
+            path="/saved-movies"
+            element={<SavedMovies dataFilms={saveDataFilms} handleFilmDelete={handleFilmDelete} isLoading={isLoading} shortDataFilms={shortSaveDataFilms} loggedIn={loggedIn}/>} />
+          <Route
+            path="/profile"
+            element={<Profile onUpdateUser={handleUpdateUser} fetchError={fetchError} logout={handelLogout} isLoading={isLoading} loggedIn={loggedIn} messageUserEdit={messageUserEdit}/>} />
+          <Route
+            path="/sign-up"
+            element={<Register handelRegister={handelRegister} fetchError={fetchError} isLoading={isLoading}/>} />
+          <Route
+            path="/sign-in"
+            element={<Login handelLogin={handelLogin} fetchError={fetchError} isLoading={isLoading}/>} />
+          <Route
+            path="/error"
+            element={<Error/>} />
+          <Route
+            path="*"
+            element={<Navigate to='/error'/>} />
         </Routes>
       </div>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
