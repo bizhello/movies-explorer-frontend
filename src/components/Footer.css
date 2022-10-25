@@ -4,8 +4,6 @@
     background: #202020;
 }
 .footer__text {
-    margin-block-start: 0;
-    margin-block-end: 0;
     margin: 0;
     padding: 0;
     font-style: normal;
@@ -22,8 +20,6 @@
     padding: 0;
 }
 .footer__yers {
-    margin-block-start: 0;
-    margin-block-end: 0;
     margin: 0;
     padding: 0;
     font-style: normal;
@@ -34,8 +30,6 @@
 }
 .footer__links {
     display: block;
-    margin-block-start: 0;
-    margin-block-end: 0;
     margin: 0;
     padding: 0;
 }

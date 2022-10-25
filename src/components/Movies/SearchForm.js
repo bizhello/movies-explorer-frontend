@@ -8,7 +8,8 @@ function SearchForm(props) {
 
     const search = useInput('', {isEmpty: true});
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
         props.searchFilms(search.value);
     }
     
@@ -28,7 +29,7 @@ function SearchForm(props) {
                             onBlur={e => search.onBlur(e)}
                             required
                             />
-                        <button disabled={!search.inputValid} onClick={handleClick} className="searchForm__button" type="button">Поиск</button>
+                        <button disabled={!search.inputValid} onClick={handleClick} className="searchForm__button" type="submit">Поиск</button>
                     </label>
                     {props.completeDataFilms && props.noFound && <div style={{color:'red'}}>Ничего не найдено</div>}
                     {(search.isDirty && search.isEmpty) && <div style={{color:'red'}}>Нужно ввести ключевое слово</div>}

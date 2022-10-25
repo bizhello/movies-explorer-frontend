@@ -4,8 +4,6 @@
     background-color: #202020;
 }
 .portfolio__title {
-    margin-block-start: 0;
-    margin-block-end: 0;
     margin: 0 0 50px 0;
     padding: 0;
     font-style: normal;
@@ -23,8 +21,6 @@
     padding: 0;
 }
 .portfolio__name {
-    margin-block-start: 0;
-    margin-block-end: 0;
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
@@ -34,8 +30,6 @@
     color: #FFFFFF;
 }
 .portfolio__ul {
-    margin-block-start: 0;
-    margin-block-end: 0;
     margin: 0;
     padding: 0;
 }

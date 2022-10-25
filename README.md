@@ -1,6 +1,5 @@
 # movies-explorer-frontend
 
-
-
-ссылка на пул реквест- https://github.com/bizhello/movies-explorer-frontend/pull/2
-ссылка на макет - https://disk.yandex.ru/d/lJW1DWRFhtRKWA
+ссылка на пулл реквест- https://github.com/bizhello/movies-explorer-frontend/pull/2
+ссылку на фронтенд - https://bizhello.nomoredomains.icu
+ссылку на макет -https://disk.yandex.ru/d/lJW1DWRFhtRKWA

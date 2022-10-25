@@ -14,11 +14,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "deploy": "npm run build && scp -r ./build/* bizhello@158.160.3.8:/home/bizhello/movies-explorer-frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  
   "eslintConfig": {
     "extends": [
       "react-app",

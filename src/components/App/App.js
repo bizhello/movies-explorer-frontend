@@ -77,6 +77,8 @@ function App() {
       .then((res) => {
           if(res) {
             navigate('../movies', setLoggedIn(true), setIsLoading(false));
+          } else {
+            setIsLoading(false);
           }
       })
       .catch(err => {
@@ -92,6 +94,8 @@ function App() {
       .then((res) => {
         if(res) {
           handelLogin(email,password);
+          setIsLoading(false);
+        } else {
           setIsLoading(false);
         }
       })
