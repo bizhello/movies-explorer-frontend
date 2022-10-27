@@ -8,6 +8,12 @@ import MoviesCardList from "./../Movies/MoviesCardList";
 import Footer from "./../Footer";
 
 function SavedMovies(props) {
+
+  const params = {
+    value: '',
+    check: true,
+  }
+
   const [noFound, setNoFound] = useState(false)
   const [checkShortFilms, setCheckShortFilms] = useState(false); //нажатый кечбокс короткометражек
   const [addCards, setAddCards] = useState([]); //все фильмы с апи
@@ -29,7 +35,6 @@ function SavedMovies(props) {
   
   useEffect(()=> {
     setAddCards(props.dataFilms);
-    // setShowCards(addCards);
     },[props.dataFilms]);
 
    function searchFilms(valueSearch) {
@@ -42,6 +47,7 @@ function SavedMovies(props) {
         <main className="content">
         {props.isLoading && <LoadingSpinner />}
           <SearchForm 
+            params = {params}
             completeDataFilms={true}
             noFound={noFound}
             searchFilms={searchFilms}

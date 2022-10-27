@@ -16,6 +16,7 @@ function FilterCheckbox(props) {
                         name="filterCheckbox__films"
                         type="checkbox"
                         onClick={clikCheckBox}
+                        defaultChecked={props.checkShortFilms}
                     />
                     <div className="filterCheckbox__div"></div>
                 </label>

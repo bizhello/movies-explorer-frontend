@@ -98,4 +98,8 @@
     }
 }
 
-
+.profile__edit:disabled {
+    background: gray;
+    opacity: 1;
+    cursor: default;
+}

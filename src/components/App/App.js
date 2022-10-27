@@ -63,7 +63,7 @@ function App() {
         if(res) {
           setLoggedIn(true);
         } else {
-          navigate('../sign-in');
+          navigate('../');
         }
         })
         .catch((err) => {
@@ -108,8 +108,11 @@ function App() {
 
   const handelLogout = () => {
     logout()
-      .then(() => {
-        setLoggedIn(false)
+      .then((res) => { 
+        if (res) {
+          localStorage.removeItem('params');
+          navigate('../', setLoggedIn(false));
+        }
     })
       .catch(err => {
         setFetchError(true);
@@ -117,7 +120,7 @@ function App() {
       });
   }
 
-  function handleUpdateUser(email, name) {
+  function handleUpdateUser(name, email) {
     setIsLoading(true);
     mainApi.editUserInfo(email, name)
     .then((res)=> {
@@ -226,19 +229,44 @@ function App() {
             element={<Main loggedIn={loggedIn}/>} />
           <Route
             path="/movies"
-            element={<Movies dataFilms={dataFilms} handleFilmLike={handleFilmLike} isLoading={isLoading} saveDataFilms={saveDataFilms} shortDataFilms={shortDataFilms} loggedIn={loggedIn}/>} />
+            element={
+              loggedIn
+              ? 
+              <Movies dataFilms={dataFilms} handleFilmLike={handleFilmLike} isLoading={isLoading} saveDataFilms={saveDataFilms} shortDataFilms={shortDataFilms} loggedIn={loggedIn}/>
+              :
+              <Navigate to='/'/> }/>
           <Route
             path="/saved-movies"
-            element={<SavedMovies dataFilms={saveDataFilms} handleFilmDelete={handleFilmDelete} isLoading={isLoading} shortDataFilms={shortSaveDataFilms} loggedIn={loggedIn}/>} />
+            element={
+              loggedIn
+              ?
+              <SavedMovies dataFilms={saveDataFilms} handleFilmDelete={handleFilmDelete} isLoading={isLoading} shortDataFilms={shortSaveDataFilms} loggedIn={loggedIn}/>
+              :
+              <Navigate to='/'/>} />
           <Route
             path="/profile"
-            element={<Profile onUpdateUser={handleUpdateUser} fetchError={fetchError} logout={handelLogout} isLoading={isLoading} loggedIn={loggedIn} messageUserEdit={messageUserEdit}/>} />
+            element={
+              loggedIn
+              ?
+              <Profile onUpdateUser={handleUpdateUser} fetchError={fetchError} logout={handelLogout} isLoading={isLoading} loggedIn={loggedIn} messageUserEdit={messageUserEdit}/>
+              :
+              <Navigate to='/'/>} />
           <Route
             path="/sign-up"
-            element={<Register handelRegister={handelRegister} fetchError={fetchError} isLoading={isLoading}/>} />
+            element={ 
+              loggedIn
+              ?
+              <Navigate to='/movies'/>
+              :
+              <Register handelRegister={handelRegister} fetchError={fetchError} isLoading={isLoading}/>} /> 
           <Route
             path="/sign-in"
-            element={<Login handelLogin={handelLogin} fetchError={fetchError} isLoading={isLoading}/>} />
+            element={ 
+              loggedIn
+              ?
+              <Navigate to='/movies'/>
+              :
+              <Login handelLogin={handelLogin} fetchError={fetchError} isLoading={isLoading}/>} /> 
           <Route
             path="/error"
             element={<Error/>} />
