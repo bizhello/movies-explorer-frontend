@@ -1,0 +1,20 @@
+.moviesCardList {
+    display: grid;
+    margin: 0px auto;
+    padding: 70px 70px 10px;
+    grid-template-columns: repeat(1, minmax(min-content, 2140px));
+    gap: 40px;
+    background: #202020;
+}
+
+@media (max-width: 800px) {
+    .moviesCardList {
+        padding: 60px 30px 30px;
+    }
+}
+@media (max-width: 385px) {
+    .moviesCardList {
+        padding: 40px 10px 20px;
+        gap: 20px;
+    }
+}

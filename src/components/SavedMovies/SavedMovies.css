@@ -1,0 +1,7 @@
+@media (max-width: 385px) {
+    .moviesCard__delete {
+        position: absolute;
+        right: 16px;
+        bottom: 35px;
+    }
+}
